@@ -23,10 +23,12 @@ def pick_prices_from_dataframe(
     """Return the prices from `pricedf` that are nearest to dates `dates`. Use
     `which_column` to pick the dataframe column.
     """
-    return list(
-        pricedf.iloc[pricedf.index.get_indexer([x], method="nearest")[0]][which_column]
+    return [
+        pricedf.iloc[pricedf.index.get_indexer([x], method="nearest")[0]][
+            which_column
+        ]
         for x in dates
-    )
+    ]
 
 
 def tessa_verbose_xpme(
