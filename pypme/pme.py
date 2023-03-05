@@ -35,13 +35,13 @@ def verbose_pme(
     pme_prices: List[float],
 ) -> Tuple[float, float, pd.DataFrame]:
     """Calculate PME for evenly spaced cashflows and return vebose information."""
-    if len(cashflows) == 0:
+    if not cashflows:
         raise ValueError("Must have at least one cashflow")
-    if not cashflows[0] < 0:
+    if cashflows[0] >= 0:
         raise ValueError(
             "The first cashflow must be negative, i.e., a buy of some of the asset"
         )
-    if not all(x > 0 for x in prices + pme_prices):
+    if any(x <= 0 for x in prices + pme_prices):
         raise ValueError("All prices must be > 0")
     if len(prices) != len(pme_prices) or len(cashflows) != len(prices) - 1:
         raise ValueError("Inconsistent input data")
